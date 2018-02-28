@@ -1,7 +1,7 @@
 = Markov Chain
 
 
-You can import the markov.py file into python repl:
+You can import the markov.py file into the python repl:
 
 ----
 $ cd markov-chain/
@@ -63,7 +63,7 @@ IndexError: Project's length exceeds the size 5
 
 === Coverage Report
 
-Once you install the coverage package via pip `pip -r requirements.txt`, you run the coverage command with different forms:
+Once you install the coverage package via pip `pip install -r requirements.txt`, you run the coverage command with different forms:
 
 ----
 $ coverage html markov_test.py
