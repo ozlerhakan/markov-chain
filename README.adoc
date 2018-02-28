@@ -1,3 +1,85 @@
 = Markov Chain
 
 
+You can import the markov.py file into python repl:
+
+----
+$ cd markov-chain/
+$ python3
+>>> import markov
+>>> markov.get_table('abcdabc')
+{'a': {'b': 2}, 'b': {'c': 2}, 'c': {'d': 1}, 'd': {'a': 1}}
+>>> m = markov.Markov('abcs', size=3)
+>>> m.tables
+{'a': {'b': 1}, 'b': {'c': 1}, 'c': {'s': 1}}, {'ab': {'c': 1}, 'bc': {'s': 1}}, {'abc': {'s': 1}}]
+>>> m = markov.Markov('abcs', size=5)
+>>> m.tables
+{'a': {'b': 1}, 'b': {'c': 1}, 'c': {'s': 1}}, {'ab': {'c': 1}, 'bc': {'s': 1}}, {'abc': {'s': 1}}, {}, {}]
+5 dictionaries
+>>> m.predict('z')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/hakan/IdeaProjects/python3-live/markov.py", line 104, in predict
+    raise KeyError(f'{data_in} not in table')
+KeyError: 'z not in table'
+>>> exit()
+----
+
+Alternatively, you can directly run the markov app so as to predict whether a given text exists or not over the terminal as follows:
+
+----
+$ python markov.py -h
+usage: markov.py [-h] [-f FILE] [-s SIZE] [--encoding ENCODING] [--word]
+
+Markov chain app
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FILE, --file FILE  Input file
+  -s SIZE, --size SIZE  Markov size
+  --encoding ENCODING   Input encoding (default utf-8)
+  --word                Create a Word Markov
+$ python markov.py -f dq.txt -s 5 --word
+>START
+OF
+>DON
+QUIXOTE
+>don
+don missing
+>Don
+Quixote
+> Project
+Traceback (most recent call last):
+  File "markov.py", line 228, in <module>
+    main(sys.argv[1:]) # do not include markov.py itself
+  File "markov.py", line 145, in main
+    repl(m)
+  File "markov.py", line 151, in repl
+    res = m.predict(txt)
+  File "markov.py", line 94, in predict
+    raise IndexError(f'{data_in}\'s length exceeds the size {self.size}')
+IndexError: Project's length exceeds the size 5
+----
+
+=== Coverage Report
+
+Once you install the coverage package via pip `pip -r requirements.txt`, you run the coverage command with different forms:
+
+----
+$ coverage html markov_test.py
+----
+
+The command above should create a folder called `htmlcov` that contains the `index.html` file illustrating the coverage result.
+
+The command using `run` runs the the tests on terminal:
+
+----
+$ coverage run markov_test.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+----
+
+

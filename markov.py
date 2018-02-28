@@ -71,6 +71,7 @@ class Markov:
         '''
         #self.table = get_table(data) # data is an attribute
         self.tables = []
+        self.size = size
         for i in range(size):
             self.tables.append(get_table(data, i+1))
 
@@ -89,8 +90,8 @@ class Markov:
         >>> table.get('a').items()
 	dict_items([('b', 2)])
         '''
-        if len(self.tables) < len(data_in):
-            raise IndexError(f'{data_in} length exceeds')
+        if self.size < len(data_in):
+            raise IndexError(f'{data_in}\'s length exceeds the size {self.size}')
         
         # m.tables[len('ab')-1]
         # 'ab': {'c': 1}, 'bc': {'s': 1}}
@@ -139,7 +140,7 @@ def main(args):
                         help='Create a Word Markov')
     opts = parser.parse_args(args)
     if opts.file:
-        m = get_markov(opts.file, char=not opts.word,
+        m = get_markov(opts.file, split=not opts.word,
                        size=opts.size, encoding=opts.encoding)
         repl(m)
     
